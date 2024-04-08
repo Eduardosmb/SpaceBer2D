@@ -19,7 +19,7 @@ public class enemyCollision : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision){
+    void OnTriggerEnter2D(Collider2D collision){
         if(collision.gameObject.CompareTag("playerShoot")){
             life -= 1;
             Debug.Log("deu dano");

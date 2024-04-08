@@ -16,7 +16,7 @@ public class PlayerShooting : MonoBehaviour
     void Shoot()
         {
             Vector3 spawnPosition = transform.position;
-            Quaternion spawnRotation = Quaternion.identity;
+            Quaternion spawnRotation = Quaternion.Euler(0,0,180);
             GameObject newProjectile = Instantiate(tiro, spawnPosition, spawnRotation);
 
             Rigidbody2D rb = newProjectile.GetComponent<Rigidbody2D>();
