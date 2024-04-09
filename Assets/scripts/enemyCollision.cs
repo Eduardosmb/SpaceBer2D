@@ -1,27 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class enemyCollision : MonoBehaviour
 {
+    public static event UnityAction<float> LifeChanged;
+    public int life = 20;
 
-    public int life = 5;
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if (life <= 0){
+        if (life <= 0)
+        {
             gameObject.SetActive(false);
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision){
-        if(collision.gameObject.CompareTag("playerShoot")){
-            life -= 1;                    
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("playerShoot"))
+        {
+            life -= 1;
+            LifeChanged?.Invoke(life);
         }
     }
 }
