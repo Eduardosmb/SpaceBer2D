@@ -21,11 +21,10 @@ public class playerCollision : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other){
-        Debug.Log("deectou colkisao: ");
 
         if (other.gameObject.CompareTag("shoot") || other.gameObject.CompareTag("enemy")){
+            Destroy(other.gameObject);
             life -= 1;
-            Debug.Log("Life: " + life);
         }
     }
 }

@@ -21,9 +21,7 @@ public class enemyCollision : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision){
         if(collision.gameObject.CompareTag("playerShoot")){
-            life -= 1;
-            Debug.Log("deu dano");
-                    
+            life -= 1;                    
         }
     }
 }
