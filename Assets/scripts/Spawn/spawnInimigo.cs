@@ -1,16 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class spawnInimigo : MonoBehaviour
 {
-    public GameObject characterPrefab; 
-    public float spawnInterval = 5f;   
-    public Vector2 spawnAreaSize;      
+    public GameObject characterPrefab;
+    public float spawnInterval = 5f;
+    public Vector2 spawnAreaSize;
     private float timer = 0f;
+    public static bool canSpawn = true;
+
+    public static void EnableSpawning()
+    {
+        canSpawn = true;
+    }
+
+    void OnEnable()
+    {
+        Score.OnScoreThresholdReached += DisableSpawning;
+    }
+
+    void OnDisable()
+    {
+        Score.OnScoreThresholdReached -= DisableSpawning;
+    }
 
     void Update()
     {
+        if (!canSpawn) return;
+
         timer += Time.deltaTime;
 
         if (timer >= spawnInterval)
@@ -30,9 +46,8 @@ public class spawnInimigo : MonoBehaviour
         Instantiate(characterPrefab, spawnPosition, Quaternion.identity);
     }
 
-    private void OnDrawGizmosSelected()
+    void DisableSpawning()
     {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position, new Vector3(spawnAreaSize.x, spawnAreaSize.y, 0f));
+        canSpawn = false;
     }
 }

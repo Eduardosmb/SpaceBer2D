@@ -1,34 +1,38 @@
-// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
+using UnityEngine;
+using UnityEngine.Events;
 
-// public class spawnBoos : MonoBehaviour
-// {
-//     public GameObject BossPrefab;        
-//     private float timer = 0f;
+public class spawnBoss : MonoBehaviour
+{
+    public GameObject BossPrefab;
+    public Camera mainCamera;
 
-//     void Update()
-//     {
-//         timer += Time.deltaTime;
+    private void Start()
+    {
+        if (mainCamera == null)
+            mainCamera = Camera.main;
+    }
 
-//         if (timer >= spawnInterval)
-//         {
-//             Spawn();
-// =    }
+    private void OnEnable()
+    {
+        Score.OnScoreThresholdReached += SpawnBoss;
+        Boss.OnBossDefeated += HandleBossDefeat;
+    }
 
-//     void Spawn()
-//     {
-//         Vector2 spawnPosition = new Vector2(
-//             transform.position.x + Random.Range(-spawnAreaSize.x / 2f, spawnAreaSize.x / 2f),
-//             transform.position.y + Random.Range(-spawnAreaSize.y / 2f, spawnAreaSize.y / 2f)
-//         );
+    private void OnDisable()
+    {
+        Score.OnScoreThresholdReached -= SpawnBoss;
+        Boss.OnBossDefeated -= HandleBossDefeat;
+    }
 
-//         Instantiate(characterPrefab, spawnPosition, Quaternion.identity);
-//     }
+    private void SpawnBoss()
+    {
+        Debug.Log("Spawning boss.");
+        Vector3 spawnPosition = mainCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 10f));
+        Instantiate(BossPrefab, spawnPosition, Quaternion.identity);
+    }
 
-//     private void OnDrawGizmosSelected()
-//     {
-//         Gizmos.color = Color.green;
-//         Gizmos.DrawWireCube(transform.position, new Vector3(spawnAreaSize.x, spawnAreaSize.y, 0f));
-//     }
-// }
+    private void HandleBossDefeat()
+    {
+        spawnInimigo.EnableSpawning();
+    }
+}

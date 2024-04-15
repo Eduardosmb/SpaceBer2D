@@ -6,9 +6,8 @@ using TMPro; // Adicione este namespace para usar TextMeshPro
 
 public class Score : MonoBehaviour
 {
-    public static event UnityAction<float> ScoreUp;
-    public TextMeshProUGUI scoreText; // Variável para o componente TextMeshPro
-
+    public static event UnityAction OnScoreThresholdReached;
+    public TextMeshProUGUI scoreText;
     private int score;
 
     void Start()
@@ -20,11 +19,21 @@ public class Score : MonoBehaviour
     public void AddScore(int amount)
     {
         score += amount;
-        UpdateScoreText(); // Atualizar o texto cada vez que a pontuação muda
+        UpdateScoreText();
+        CheckScoreThreshold();
     }
 
     void UpdateScoreText()
     {
         scoreText.text = "Score: " + score;
+    }
+
+    void CheckScoreThreshold()
+    {
+        if (score % 120 == 0)
+        {
+            Debug.Log("Threshold reached, spawning boss.");
+            OnScoreThresholdReached?.Invoke();
+        }
     }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5861825358456907849}
   - component: {fileID: -6071048941979785245}
   - component: {fileID: -3551724580830231302}
+  - component: {fileID: -3870682210984567204}
   m_Layer: 0
   m_Name: tiro_inimigo
   m_TagString: shoot
@@ -158,3 +159,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-3870682210984567204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7528636888518660321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9500320382244b34aa7254b963cb9f24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToDisappear: 3
